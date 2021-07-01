@@ -1,0 +1,14 @@
+amazon-braket-default-simulator
+amazon-braket-ocean-plugin
+amazon-braket-pennylane-plugin
+amazon-braket-schemas
+amazon-braket-sdk
+dask==2.30.0
+dwave-ocean-sdk==3.3.0
+jax==0.2.12
+keras==2.4.0
+openfermion==1.0.0
+pennylane==0.15
+pennylane-qchem==0.15
+tensorflow
+torch==1.8.1
