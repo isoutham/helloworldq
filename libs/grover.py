@@ -5,6 +5,7 @@ from braket.circuits.instruction import Instruction
 from braket.aws import AwsQuantumTask, AwsDevice
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import pandas as pd
 
 
@@ -183,6 +184,7 @@ class Grover:
         # odf = odf[odf["probability"] > 0]
         odf['char'] = odf.index.map(lambda x: self.decode_string(x))
         # odf = odf[(odf["char"] >= 'a') & (odf['char'] <= 'z')]
+        self.graph_all(odf)
         print('Solution:')
         print(odf[odf.probability == odf.probability.max()])
         odf = odf[odf.index.isin(self.database)]
@@ -192,6 +194,20 @@ class Grover:
         plt.ylabel('Probability')
         # plt.xticks(rotation=90)
         plt.savefig('grover.png')
+
+    def graph_all(self, odf):
+        total = odf['probability'].sum()
+        spacing = 5
+        fig, ax = plt.subplots(1, 1)
+        plt.bar(odf.index, odf['probability'])
+        sumof = r'$\sum_{} P$'
+        plt.title(f'Search for {self.item} {sumof} = {total}')
+        plt.xlabel('Bitmaps')
+        plt.ylabel('Probability')
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(spacing))
+        plt.xticks(rotation=90)
+        fig.tight_layout()
+        plt.savefig('grover-all.png')
 
     @property
     def device(self):
